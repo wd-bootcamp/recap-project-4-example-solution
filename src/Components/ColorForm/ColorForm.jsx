@@ -8,13 +8,17 @@ const INITIAL_VALUES = {
   contrastText: "#ffffff",
 };
 
-export default function ColorForm({ onAddColor }) {
-  const [hex, setHex] = useState(INITIAL_VALUES.hex);
-  const [contrast, setContrast] = useState(INITIAL_VALUES.contrastText);
+export default function ColorForm({
+  onSubmit,
+  submitText = "Add Color",
+  defaultValues = INITIAL_VALUES,
+}) {
+  const [hex, setHex] = useState(defaultValues.hex);
+  const [contrast, setContrast] = useState(defaultValues.contrastText);
 
   function resetColors() {
-    setHex(INITIAL_VALUES.hex);
-    setContrast(INITIAL_VALUES.contrastText);
+    setHex(defaultValues.hex);
+    setContrast(defaultValues.contrastText);
   }
 
   function handleSubmit(event) {
@@ -22,7 +26,7 @@ export default function ColorForm({ onAddColor }) {
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
 
-    onAddColor(data);
+    onSubmit(data);
 
     event.target.reset();
     resetColors();
@@ -35,7 +39,7 @@ export default function ColorForm({ onAddColor }) {
           type="text"
           name="role"
           required
-          defaultValue={INITIAL_VALUES.role}
+          defaultValue={defaultValues.role}
         />
       </label>
       <label className="color-input">
@@ -68,7 +72,7 @@ export default function ColorForm({ onAddColor }) {
           onChange={(event) => setContrast(event.target.value)}
         />
       </label>
-      <button>Add Color</button>
+      <button>{submitText}</button>
     </form>
   );
 }

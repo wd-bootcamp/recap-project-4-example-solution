@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./Color.css";
+import ColorForm from "../ColorForm/ColorForm";
 
-export default function Color({ color, onDelete }) {
+export default function Color({ color, onDelete, onEdit }) {
   return (
     <div
       className="color-card"
@@ -14,6 +15,7 @@ export default function Color({ color, onDelete }) {
       <h4>{color.role}</h4>
       <p>contrast: {color.contrastText}</p>
       <DeleteAction onDelete={onDelete} />
+      <EditAction onEdit={onEdit} color={color} />
     </div>
   );
 }
@@ -32,4 +34,26 @@ function DeleteAction({ onDelete }) {
   }
 
   return <button onClick={() => setShowConfirmation(true)}>delete</button>;
+}
+
+function EditAction({ onEdit, color }) {
+  const [showEditForm, setShowEditForm] = useState(false);
+
+  if (showEditForm) {
+    return (
+      <div>
+        <ColorForm
+          onSubmit={(data) => {
+            setShowEditForm(false);
+            onEdit(data);
+          }}
+          defaultValues={color}
+          submitText="Edit Color"
+        />
+        <button onClick={() => setShowEditForm(false)}>cancel</button>
+      </div>
+    );
+  }
+
+  return <button onClick={() => setShowEditForm(true)}>edit</button>;
 }

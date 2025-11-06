@@ -10,4 +10,9 @@
     grid-template-columns: auto 1fr auto;
     gap: 0.25rem;
     align-items: center;
+
+    & input {
+        width: 100%;
+        min-width: 3rem;
+    }
 }

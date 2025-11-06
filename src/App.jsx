@@ -21,6 +21,18 @@ function App() {
     setColors(updatedColors);
   }
 
+  function handleEditColor(updatedColor) {
+    const updatedColors = colors.map((color) => {
+      if (color.id !== updatedColor.id) {
+        return color;
+      }
+
+      return updatedColor;
+    });
+
+    setColors(updatedColors);
+  }
+
   return (
     <>
       <h1>Theme Creator</h1>
@@ -31,6 +43,14 @@ function App() {
             key={color.id}
             color={color}
             onDelete={() => handleDeleteColor(color.id)}
+            onEdit={(data) => {
+              const dataWithId = {
+                ...data,
+                id: color.id,
+              };
+
+              handleEditColor(dataWithId);
+            }}
           />
         );
       })}
