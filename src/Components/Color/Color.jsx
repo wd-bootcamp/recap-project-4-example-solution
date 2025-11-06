@@ -15,6 +15,7 @@ export default function Color({ color, onDelete, onEdit }) {
       <CopyAction value={color.hex} />
       <h4>{color.role}</h4>
       <p>contrast: {color.contrastText}</p>
+      <ContrastDisplay score={color.contrastScore} />
       <DeleteAction onDelete={onDelete} />
       <EditAction onEdit={onEdit} color={color} />
     </div>
@@ -74,4 +75,26 @@ function CopyAction({ value }) {
       {isActive ? "Successfully copied!" : "copy"}
     </button>
   );
+}
+
+function ContrastDisplay({ score }) {
+  let displayText = "No Score Found";
+
+  if (score === "AAA") {
+    displayText = "⭐︎⭐︎⭐︎";
+  }
+
+  if (score === "AA") {
+    displayText = "⭐︎⭐︎-";
+  }
+
+  if (score === "A") {
+    displayText = "⭐︎--";
+  }
+
+  if (score === "Fail") {
+    displayText = "---";
+  }
+
+  return <p>Contrast Score: {displayText}</p>;
 }

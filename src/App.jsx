@@ -3,16 +3,21 @@ import Color from "./Components/Color/Color";
 import "./App.css";
 import ColorForm from "./Components/ColorForm/ColorForm";
 import useLocalStorageState from "use-local-storage-state";
+import { checkColorContrast } from "./lib/utils";
 
 function App() {
   const [colors, setColors] = useLocalStorageState("colors", {
     defaultValue: initialColors,
   });
 
-  function handleAddColor(data) {
+  async function handleAddColor(data) {
+    const id = crypto.randomUUID();
+    const contrastScore = await checkColorContrast(data.hex, data.contrastText);
+
     const newColor = {
       ...data,
-      id: crypto.randomUUID(),
+      id,
+      contrastScore,
     };
     const updatedColors = [newColor, ...colors];
     setColors(updatedColors);
@@ -23,7 +28,14 @@ function App() {
     setColors(updatedColors);
   }
 
-  function handleEditColor(updatedColor) {
+  async function handleEditColor(data) {
+    const contrastScore = await checkColorContrast(data.hex, data.contrastText);
+    console.log(contrastScore);
+    const updatedColor = {
+      ...data,
+      contrastScore,
+    };
+
     const updatedColors = colors.map((color) => {
       if (color.id !== updatedColor.id) {
         return color;
@@ -38,7 +50,7 @@ function App() {
   return (
     <>
       <h1>Theme Creator</h1>
-      <ColorForm onAddColor={handleAddColor} />
+      <ColorForm onSubmit={handleAddColor} />
       {colors.map((color) => {
         return (
           <Color
