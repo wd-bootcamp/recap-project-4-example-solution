@@ -12,6 +12,7 @@ export default function Color({ color, onDelete, onEdit }) {
       }}
     >
       <h3 className="color-card-headline">{color.hex}</h3>
+      <CopyAction value={color.hex} />
       <h4>{color.role}</h4>
       <p>contrast: {color.contrastText}</p>
       <DeleteAction onDelete={onDelete} />
@@ -56,4 +57,21 @@ function EditAction({ onEdit, color }) {
   }
 
   return <button onClick={() => setShowEditForm(true)}>edit</button>;
+}
+
+function CopyAction({ value }) {
+  const [isActive, setIsActive] = useState(false);
+
+  function handleCopyValue() {
+    if (isActive) return;
+
+    setIsActive(true);
+    navigator.clipboard.writeText(value);
+    setTimeout(() => setIsActive(false), 3 * 1000);
+  }
+  return (
+    <button onClick={handleCopyValue}>
+      {isActive ? "Successfully copied!" : "copy"}
+    </button>
+  );
 }
