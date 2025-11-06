@@ -1,0 +1,13 @@
+.color-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 0;
+}
+
+.color-input {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.25rem;
+    align-items: center;
+}
