@@ -31,13 +31,19 @@ export default function ColorForm({ onAddColor }) {
     <form className="color-form" onSubmit={handleSubmit}>
       <label className="color-input">
         Role
-        <input type="text" name="role" defaultValue={INITIAL_VALUES.role} />
+        <input
+          type="text"
+          name="role"
+          required
+          defaultValue={INITIAL_VALUES.role}
+        />
       </label>
       <label className="color-input">
         Hex
         <input
           type="text"
           name="hex"
+          required
           value={hex}
           onChange={(event) => setHex(event.target.value)}
         />
@@ -52,6 +58,7 @@ export default function ColorForm({ onAddColor }) {
         <input
           type="text"
           name="contrastText"
+          required
           value={contrast}
           onChange={(event) => setContrast(event.target.value)}
         />
