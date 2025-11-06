@@ -12,7 +12,13 @@ function App() {
       ...data,
       id: crypto.randomUUID(),
     };
-    setColors([newColor, ...colors]);
+    const updatedColors = [newColor, ...colors];
+    setColors(updatedColors);
+  }
+
+  function handleDeleteColor(id) {
+    const updatedColors = colors.filter((color) => color.id !== id);
+    setColors(updatedColors);
   }
 
   return (
@@ -20,7 +26,13 @@ function App() {
       <h1>Theme Creator</h1>
       <ColorForm onAddColor={handleAddColor} />
       {colors.map((color) => {
-        return <Color key={color.id} color={color} />;
+        return (
+          <Color
+            key={color.id}
+            color={color}
+            onDelete={() => handleDeleteColor(color.id)}
+          />
+        );
       })}
     </>
   );
