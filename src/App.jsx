@@ -36,7 +36,7 @@ function App() {
   return (
     <>
       <h1>Theme Creator</h1>
-      <ColorForm onAddColor={handleAddColor} />
+      <ColorForm onSubmit={handleAddColor} />
       {colors.map((color) => {
         return (
           <Color
