@@ -78,23 +78,27 @@ function CopyAction({ value }) {
 }
 
 function ContrastDisplay({ score }) {
-  let displayText = "No Score Found";
+  let scoreModifierClass = "";
 
   if (score === "AAA") {
-    displayText = "⭐︎⭐︎⭐︎";
+    scoreModifierClass = "score--best";
   }
 
   if (score === "AA") {
-    displayText = "⭐︎⭐︎-";
+    scoreModifierClass = "score--good";
   }
 
   if (score === "A") {
-    displayText = "⭐︎--";
+    scoreModifierClass = "score--warning";
   }
 
   if (score === "Fail") {
-    displayText = "---";
+    scoreModifierClass = "score--fail";
   }
 
-  return <p>Contrast Score: {displayText}</p>;
+  return (
+    <p>
+      Contrast Score: <span className={`score ${scoreModifierClass}`}></span>
+    </p>
+  );
 }
